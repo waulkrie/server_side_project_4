@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="mt-6 row">
+    <div class="col-md-12">
+      <div class="row d-flex justify-content-center mt-5">
+        <div class="col-md-12">
+          <div class="card">
+            <div style="text-align:center;">
+              <h2 class="card-title">Welcome to Your TV Show List</h2>
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-center">
+                <ul>
+                  <form id="search-form" action="/search" method="POST">
+                    <input
+                      type="text"
+                      name="search_bar"
+                      placeholder="Search..."
+                    />
+                    <button
+                      type="submit"
+                      class="btn btn-small btn-http btn-primary"
+                      href="/search"
+                    >Search</button>
+                  </form>
+                </ul>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-5">
+              <div class="col-md-12">
+                {{! If we have any search results, show them here below the search form }}
+                {{! this should be a partial template... }}
+                {{#if favorites}}
+                  <hr />
+                  <div class="row">
+                    {{! <div class="col-md-11 card"> }}
+                    <div class="card-body">
+                      <h2 class="card-title">Favorites</h2>
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Rating</th>
+                              <th>Image</th>
+                              <th>Summary</th>
+                              {{! <th>Favorite</th> }}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each favorites as |r|}}
+                              <tr>
+                                <td><a href="{{r.url}}">{{r.name}}</a></td>
+
+                                {{#if r.rating}}
+                                  <td>{{r.rating}}</td>
+                                {{else}}
+                                  <td>Not Rated</td>
+                                {{/if}}
+
+                                {{#if r.image}}
+                                  <td style="text-align: left;"><img
+                                      src="{{r.image}}"
+                                      style="max-width: 110%; max-height: 450px;"
+                                    /></td>
+                                {{else}}
+                                  <td> No Image </td>
+                                {{/if}}
+
+                                <td>{{{r.summary}}}</td>
+
+                                  <td>
+                                {{#if r.active}}
+                                    <a
+                                      href="/delete_favorite?show_id={{r.show_id}}"
+                                      class="btn btn-small btn-secondary btn-block"
+                                    >Unfavorite</a>
+                                {{else}}
+                                    <a
+                                      href="/favorite?show_id={{r.show_id}}"
+                                      class="btn btn-small btn-primary btn-block"
+                                    >favorite</a>
+                                {{/if}}
+                                  </td>
+                              </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    {{! </div> }}
+                  </div>
+                {{else}}
+                  <div class="row">
+                    <h2 class="card-title d-flex justify-content-center">No
+                      Favorites, you should add some...</h2>
+                  </div>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
